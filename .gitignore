@@ -1,0 +1,134 @@
+# Medical Embedding Thesis .gitignore
+
+# Data files (too large for git)
+data/anking/*.anki2
+data/anking/*.db
+data/textbooks/
+*.txt
+*.json
+*.csv
+
+# Large model files - stored separately 
+models/
+*.bin
+*.safetensors
+pytorch_model.bin
+*.pth
+*.pt
+
+# Packaged models (distributed separately)
+packaged_models/
+*.tar.gz
+*.zip
+
+# Embeddings and results
+data/embeddings/
+results/*/embeddings/
+*.npy
+*.pkl
+*.pickle
+
+# Large result files
+results/*/visualizations/*.png
+results/*/visualizations/*.pdf
+results/*/raw_data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook
+.ipynb_checkpoints
+notebooks/.ipynb_checkpoints/
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+conda-env/
+
+# Training logs
+logs/
+wandb/
+tensorboard_logs/
+*.log
+*.err
+*.out
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.spyderproject
+.spyproject
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+*.tmp
+
+# SLURM
+slurm-*.out
+slurm-*.err
+
+# Conda
+.conda/
+
+# Cache directories
+.cache/
+__pycache__/
+.pytest_cache/
+
+# Documentation builds
+docs/_build/
+docs/build/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# Profiling data
+.prof
