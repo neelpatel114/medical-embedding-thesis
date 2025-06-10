@@ -123,11 +123,11 @@ medical_embedding_thesis/
 *Note: Simplified training for rapid prototyping and debugging.*
 
 **Key Optimizations:**
-- Multi-GPU training with proper data parallelization
+- Fixed environment compatibility (PyTorch 2.0.1 + Transformers 4.30.2)
+- Simplified training approach with better error handling
 - Optimized hyperparameters (batch size, learning rate, warmup)
-- Local data copying for faster I/O
-- Compatible library versions (PyTorch 2.0.1 + Transformers 4.30.2)
-- Enhanced data preprocessing and cleaning
+- Medical domain dummy data for testing and validation
+- Enhanced logging and monitoring capabilities
 
 ## Research Status
 
@@ -136,7 +136,7 @@ medical_embedding_thesis/
 - [x] Optimized training pipeline development
 - [x] SLURM cluster setup and configuration
 - [ ] AnKing dataset analysis and tag structure examination
-- [x] Model training execution (2 BERT variants)
+- [🔄] Model training execution (2 BERT variants) - In Progress: Job 41312
 - [ ] Embedding alignment evaluation
 - [ ] Cross-domain performance analysis
 - [ ] Results analysis and thesis writing
