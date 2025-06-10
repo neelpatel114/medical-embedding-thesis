@@ -10,19 +10,17 @@ The trained models from this research are stored on the HPC cluster and can be a
 
 | Model | Directory | Size | Description |
 |-------|-----------|------|-------------|
-| **BERT Raw** | `bert_raw_optimized/` | ~500MB | Base BERT on raw medical textbooks |
-| **BERT Enhanced** | `bert_enhanced_optimized/` | ~500MB | Base BERT on LLM-enhanced textbooks |
-| **BioBERT Enhanced** | `biobert/biobert_enhanced_optimized/` | ~500MB | BioBERT on enhanced textbooks |
-| **ClinicalBERT Enhanced** | `clinicalbert/clinicalbert_enhanced_optimized/` | ~500MB | ClinicalBERT on enhanced textbooks |
+| **BERT Raw** | `bert_raw_simple/` | ~500MB | Base BERT on original medical textbooks |
+| **BERT Enhanced** | `bert_enhanced_simple/` | ~500MB | Base BERT on LLM-enhanced textbooks |
 
-**Total Size**: ~2GB for all models
+**Total Size**: ~1GB for both models
 
 ### 📦 **Download Options**
 
 #### Option 1: Individual Model Download
 ```bash
 # Copy specific model from HPC
-scp -r username@hpc:/home/pateln3/medical_embedding_thesis/models/bert_enhanced_optimized/ ./
+scp -r username@hpc:/home/pateln3/medical_embedding_thesis/models/bert_enhanced_simple/ ./
 ```
 
 #### Option 2: Packaged Models (Recommended)
@@ -33,9 +31,7 @@ python scripts/package_models.py
 
 # This creates: packaged_models/
 # - bert_raw_medical.tar.gz
-# - bert_enhanced_medical.tar.gz  
-# - biobert_enhanced_medical.tar.gz
-# - clinicalbert_enhanced_medical.tar.gz
+# - bert_enhanced_medical.tar.gz
 # - extract_models.sh (extraction script)
 # - manifest.json (package info)
 ```
@@ -67,7 +63,7 @@ model_directory/
 from transformers import AutoTokenizer, AutoModelForMaskedLM
 
 # Load a trained model
-model_path = "./bert_enhanced_optimized/"
+model_path = "./bert_enhanced_simple/"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForMaskedLM.from_pretrained(model_path)
 

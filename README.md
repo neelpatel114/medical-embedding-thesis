@@ -8,7 +8,7 @@
 
 ## Research Overview
 
-This research investigates how effectively modern embedding models (BERT and ModernBERT) can capture and represent the organization of medical knowledge as defined by human experts. We use the AnKing flashcard dataset with its expert-curated tagging system as our gold standard for medical knowledge organization.
+This research investigates how effectively BERT embedding models can capture and represent the organization of medical knowledge as defined by human experts. We use the AnKing flashcard dataset with its expert-curated tagging system as our gold standard for medical knowledge organization.
 
 ## Key Research Questions
 
@@ -20,10 +20,10 @@ This research investigates how effectively modern embedding models (BERT and Mod
 ## Methodology
 
 ### Models Evaluated
-- **Base BERT** (bert-base-uncased)
-- **BioBERT** (dmis-lab/biobert-v1.1) - Pre-trained on biomedical literature
-- **ClinicalBERT** (emilyalsentzer/Bio_ClinicalBERT) - Pre-trained on clinical notes
-- **Fine-tuned variants** on medical textbooks (raw vs enhanced data)
+- **BERT Raw** - Base BERT fine-tuned on original medical textbooks
+- **BERT Enhanced** - Base BERT fine-tuned on LLM-enhanced medical textbooks
+
+*Note: Focus on BERT variants to establish baseline performance and evaluate data enhancement impact.*
 
 ### Datasets
 - **Training Data**: Medical textbooks (raw and LLM-enhanced)
@@ -48,26 +48,19 @@ medical_embedding_thesis/
 │   ├── textbooks/              # Medical textbook training data
 │   └── embeddings/             # Generated embeddings
 ├── models/
-│   ├── bert_base/              # Base BERT model variants
-│   │   ├── bert_raw_optimized/
-│   │   └── bert_enhanced_optimized/
-│   ├── biobert/                # BioBERT model variants
-│   │   └── biobert_enhanced_optimized/
-│   ├── clinicalbert/           # ClinicalBERT model variants
-│   │   └── clinicalbert_enhanced_optimized/
-│   └── enhanced_variants/       # Enhanced training approaches
+│   ├── bert_raw_simple/        # BERT trained on original textbooks
+│   ├── bert_enhanced_simple/   # BERT trained on enhanced textbooks
+│   └── README.md               # Model information and access
 ├── scripts/
 │   ├── anking_analysis.py      # AnKing dataset analysis
 │   ├── embedding_alignment.py  # Expert-model alignment evaluation
-│   ├── optimized_training.py   # Optimized training pipeline
+│   ├── simple_bert_training.py # Simplified BERT training script
+│   ├── package_models.py       # Model packaging for distribution
 │   └── quick_data_check.py     # Data validation utility
 ├── slurm_scripts/              # HPC training scripts
 │   ├── setup_environment.sh    # Environment setup
-│   ├── train_bert_raw.slurm    # Base BERT raw training
-│   ├── train_bert_enhanced.slurm # Base BERT enhanced training
-│   ├── train_biobert_enhanced.slurm # BioBERT enhanced training
-│   ├── train_clinicalbert_enhanced.slurm # ClinicalBERT enhanced training
-│   └── submit_all_training.sh  # Master training submission
+│   ├── train_bert_simple.slurm # Simplified BERT training (both models)
+│   └── submit_bert_training.sh # BERT training submission
 ├── notebooks/
 │   └── thesis_analysis.ipynb   # Main analysis notebook
 ├── evaluation/                 # Evaluation results and metrics
@@ -106,13 +99,9 @@ medical_embedding_thesis/
 
 3. **Start Training**
    ```bash
-   # Submit all training jobs
+   # Submit BERT training job
    cd slurm_scripts
-   ./submit_all_training.sh
-   
-   # Or submit individual jobs
-   sbatch train_bert_enhanced.slurm
-   sbatch train_modernbert_enhanced.slurm
+   sbatch train_bert_simple.slurm
    ```
 
 4. **Monitor Progress**
@@ -121,16 +110,17 @@ medical_embedding_thesis/
    squeue -u $USER
    
    # Monitor training logs
-   tail -f logs/bert_enhanced_*.log
+   tail -f logs/bert_simple_*.log
    ```
 
 ### Training Configuration
 
 | Model | Data Type | GPUs | Memory | Estimated Time |
 |-------|-----------|------|--------|----------------|
-| Base BERT | Raw/Enhanced | 2x A40 | 64GB | 24-36 hours |
-| BioBERT | Enhanced | 2x A40 | 64GB | 24-36 hours |
-| ClinicalBERT | Enhanced | 2x A40 | 64GB | 24-36 hours |
+| BERT Raw | Original textbooks | 1x A40 | 32GB | 2-4 hours |
+| BERT Enhanced | LLM-enhanced textbooks | 1x A40 | 32GB | 2-4 hours |
+
+*Note: Simplified training for rapid prototyping and debugging.*
 
 **Key Optimizations:**
 - Multi-GPU training with proper data parallelization
@@ -146,7 +136,7 @@ medical_embedding_thesis/
 - [x] Optimized training pipeline development
 - [x] SLURM cluster setup and configuration
 - [ ] AnKing dataset analysis and tag structure examination
-- [ ] Model training execution (4 variants)
+- [x] Model training execution (2 BERT variants)
 - [ ] Embedding alignment evaluation
 - [ ] Cross-domain performance analysis
 - [ ] Results analysis and thesis writing
@@ -166,15 +156,16 @@ medical_embedding_thesis/
 
 ## Model Variants
 
-1. **BERT-Raw**: Standard BERT fine-tuned on raw medical textbooks
-2. **BERT-Enhanced**: Standard BERT fine-tuned on LLM-enhanced medical textbooks  
-3. **BioBERT-Enhanced**: BioBERT fine-tuned on enhanced medical textbooks
-4. **ClinicalBERT-Enhanced**: ClinicalBERT fine-tuned on enhanced medical textbooks
+1. **BERT Raw**: Standard BERT fine-tuned on original medical textbooks
+2. **BERT Enhanced**: Standard BERT fine-tuned on LLM-enhanced medical textbooks
 
-### Architecture Comparison
-- **Base BERT**: General domain pre-training on BookCorpus + Wikipedia
-- **BioBERT**: Domain-specific pre-training on PubMed abstracts + PMC full-text articles
-- **ClinicalBERT**: Domain-specific pre-training on clinical notes (MIMIC-III dataset)
+*Focus: Evaluate impact of data enhancement techniques on medical knowledge representation.*
+
+### Training Approach
+- **Base Architecture**: BERT-base-uncased (110M parameters)
+- **Fine-tuning**: Masked language modeling on medical domain
+- **Data Enhancement**: LLM-based acronym expansion and readability improvements
+- **Evaluation**: Alignment with expert-tagged AnKing flashcards
 
 ## Evaluation Framework
 

@@ -120,10 +120,8 @@ model = AutoModelForMaskedLM.from_pretrained(".")
         
         # Expected model directories
         model_configs = [
-            ("bert_raw_optimized", "bert_raw_medical"),
-            ("bert_enhanced_optimized", "bert_enhanced_medical"), 
-            ("biobert/biobert_enhanced_optimized", "biobert_enhanced_medical"),
-            ("clinicalbert/clinicalbert_enhanced_optimized", "clinicalbert_enhanced_medical")
+            ("bert_raw_simple", "bert_raw_medical"),
+            ("bert_enhanced_simple", "bert_enhanced_medical")
         ]
         
         packages_created = []
